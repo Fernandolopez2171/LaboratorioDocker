@@ -19,20 +19,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Set up Docker Buildx
-        run: |
-          docker buildx create --name mybuilder
-          docker buildx use mybuilder
-      -
         name: Build and push
         run: |
-          docker buildx build --platform windows/amd64 -t ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest .
-          docker buildx build --platform linux/amd64 -t ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest .
-          docker buildx build --platform linux/arm64 -t ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest .
-          docker buildx build --platform linux/ppc64le -t ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest .
-          docker buildx build --platform linux/s390x -t ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest .
-          docker buildx build --platform linux/386 -t ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest .
-          docker buildx build --platform linux/arm/v7 -t ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest .
-          docker buildx build --platform linux/arm/v6 -t ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest .
-          docker buildx build --platform linux/riscv64 -t ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest .
-          docker buildx build --platform linux/ppc64le -t ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest --push
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest
